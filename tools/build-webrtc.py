@@ -64,7 +64,11 @@ _GN_MACOS_ARGS = [
 GN_MACOS_ARGS = build_gn_args(_GN_APPLE_COMMON + _GN_MACOS_ARGS)
 
 _GN_ANDROID_ARGS = [
-    'target_os="android"'
+    'target_os="android"',
+    'proprietary_codecs=true',
+    'rtc_use_h264=true',
+    'rtc_use_h265=true',
+    'ffmpeg_branding="Chrome"'
 ]
 GN_ANDROID_ARGS = build_gn_args(_GN_ANDROID_ARGS)
 

@@ -95,6 +95,15 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
             injectableLogger = options.injectableLogger;
             loggingSeverity = options.loggingSeverity;
         }
+        if(BuildConfig.DEBUG) {
+            injectableLogger = new Loggable() {
+                @Override
+                public void onLogMessage(String message, Logging.Severity severity, String tag) {
+                    Log.d(tag, message);
+                }
+            };
+            loggingSeverity = Logging.Severity.LS_VERBOSE;
+        }
 
         PeerConnectionFactory.initialize(
             PeerConnectionFactory.InitializationOptions.builder(reactContext)
@@ -111,7 +120,7 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
                     = new DefaultVideoEncoderFactory(
                     eglContext,
                     /* enableIntelVp8Encoder */ true,
-                    /* enableH264HighProfile */ false);
+                    /* enableH264HighProfile */ true);
                 decoderFactory = new DefaultVideoDecoderFactory(eglContext);
             } else {
                 encoderFactory = new SoftwareVideoEncoderFactory();

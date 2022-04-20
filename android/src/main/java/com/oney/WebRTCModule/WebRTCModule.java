@@ -95,10 +95,22 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
             injectableLogger = options.injectableLogger;
             loggingSeverity = options.loggingSeverity;
         }
+        if(BuildConfig.DEBUG) {
+            injectableLogger = new Loggable() {
+                @Override
+                public void onLogMessage(String message, Logging.Severity severity, String tag) {
+                    Log.d(tag, message);
+                }
+            };
+            loggingSeverity = Logging.Severity.LS_VERBOSE;
+        }
+
+        LibraryLoader lLoader = new LibraryLoader();
+        lLoader.load("ffmpeg");
 
         PeerConnectionFactory.initialize(
             PeerConnectionFactory.InitializationOptions.builder(reactContext)
-                .setNativeLibraryLoader(new LibraryLoader())
+                .setNativeLibraryLoader(lLoader)
                 .setInjectableLogger(injectableLogger, loggingSeverity)
                 .createInitializationOptions());
 

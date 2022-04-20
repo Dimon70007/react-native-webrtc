@@ -64,7 +64,11 @@ _GN_MACOS_ARGS = [
 GN_MACOS_ARGS = build_gn_args(_GN_APPLE_COMMON + _GN_MACOS_ARGS)
 
 _GN_ANDROID_ARGS = [
-    'target_os="android"'
+    'target_os="android"',
+    'rtc_use_h264=true',
+    'proprietary_codecs=true',
+    'ffmpeg_branding="Chrome"',
+    'is_component_ffmpeg=true' # build ffmpeg as shared library
 ]
 GN_ANDROID_ARGS = build_gn_args(_GN_ANDROID_ARGS)
 
@@ -321,7 +325,7 @@ if __name__ == "__main__":
         print('The specified directory does not exist!')
         sys.exit(1)
 
-    target_dir = os.path.abspath(os.path.join(args.dir, 'build_webrtc'))
+    target_dir = os.path.abspath(args.dir)
     platform = 'ios' if args.ios else 'android'
 
     if args.setup:

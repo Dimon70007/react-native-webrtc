@@ -17,9 +17,9 @@ ANDROID_CPU_ABI_MAP = {
     'x64'   : 'x86_64'
 }
 ANDROID_BUILD_CPUS = [
-    'arm',
-    'arm64',
-    'x86',
+    # 'arm',
+    # 'arm64',
+    # 'x86',
     'x64'
 ]
 IOS_BUILD_ARCHS = [
@@ -66,7 +66,7 @@ GN_MACOS_ARGS = build_gn_args(_GN_APPLE_COMMON + _GN_MACOS_ARGS)
 _GN_ANDROID_ARGS = [
     'target_os="android"',
     'rtc_use_h264=true',
-    'proprietary_codecs=true',
+    'proprietary_codecs=false',
     'ffmpeg_branding="Chrome"',
     'is_component_ffmpeg=true' # build ffmpeg as shared library
 ]
